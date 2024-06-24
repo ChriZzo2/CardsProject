@@ -8,7 +8,7 @@ import s from './personal-information-avatar.module.scss'
 
 type Props = {
   editMode: boolean
-  img: string
+  img: string 
 }
 export const PersonalInformationAvatar = ({ editMode, img }: Props) => {
   const [imageSrc, setImageSrc] = useState<string>(img)
