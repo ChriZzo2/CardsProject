@@ -13,6 +13,7 @@ export const Layout = forwardRef<ElementRef<'div'>, Props>(({ children, ...restP
       <main className={s.Main}>
         <Container>{children}</Container>
       </main>
+      <div></div>
     </div>
   )
 })
