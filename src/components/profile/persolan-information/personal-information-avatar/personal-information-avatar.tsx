@@ -29,7 +29,7 @@ export const PersonalInformationAvatar = ({ editMode, img }: Props) => {
     <div className={s.Avatar}>
       <img alt={'avatar'} src={imageSrc} />
       {!editMode && (
-        <button className={clsx(scommon.ButtonEdit, s.ButtonEdit)}>
+        <button className={clsx(scommon.ButtonEdit,  s.ButtonEdit)}>
           <input
             accept={'image/png, image/jpeg'}
             className={s.ButtonEditInput}

@@ -15,7 +15,8 @@ export type UserDropdownProps = {
 }
 
 export const UserDropdown = ({ email, name, photo, photoDesc }: UserDropdownProps) => {
-  const getInitials = (name: string): string => name[0].toUpperCase()
+  //const getInitials = (name: string): string => name[0].toUpperCase() // для чего тут .toUpperCase()?
+  const getInitials = (name: string): string => name[0]
 
   const imageDisplay = photo ? (
     <img alt={photoDesc} className={s.imageIconName} src={photo} />

@@ -6,8 +6,16 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { DecksPage } from '@/pages/decks.page'
+
 import { ErrorPage } from '@/pages/error-page/error-page'
+import { Section } from './components/layout/section/section'
+
+
+
+
+
+
+
 
 const publicRoutes: RouteObject[] = [
   {
@@ -18,7 +26,7 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <DecksPage />,
+    element: <Section/>,
     path: '/',
   },
 ]

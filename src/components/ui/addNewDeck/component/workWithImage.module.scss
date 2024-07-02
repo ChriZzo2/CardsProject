@@ -1,0 +1,32 @@
+.photoInputBase {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    height: 36px;
+    background: var(--color-dark-300);
+    margin-top: 20px;
+    color: transparent;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    &:hover {
+      cursor: pointer;
+      background: #6d6d6de8;
+    }
+  
+    .modalInput {
+      max-width: 100px;
+      position: absolute;
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .spanTitle {
+      color: var(--color-light-100);
+    }
+  }
+
+ 
+  
+  
