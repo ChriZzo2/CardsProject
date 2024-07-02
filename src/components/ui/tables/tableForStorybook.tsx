@@ -42,7 +42,7 @@ export const TableForStorybook = ({ items }: Props) => {
               <TableDataCell>{items.counterCard}</TableDataCell>
               <TableDataCell>{items.updated}</TableDataCell>
               <TableDataCell>{items.by}</TableDataCell>
-              <TableDataCell>
+              <TableDataCell style={{display: "flex", gap: '4px'}}>
                 <Button variant={'icon'}>
                   <PlayCircleIcons />
                 </Button>

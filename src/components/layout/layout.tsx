@@ -9,7 +9,7 @@ type Props = ComponentPropsWithoutRef<'div'>
 export const Layout = forwardRef<ElementRef<'div'>, Props>(({ children, ...restProps }, ref) => {
   return (
     <div ref={ref} {...restProps}>
-      <Header isAuthenticated={false} />
+      <Header isAuthenticated email={''} name='' photo='' photoDesc='' />
       <main className={s.Main}>
         <Container>{children}</Container>
       </main>

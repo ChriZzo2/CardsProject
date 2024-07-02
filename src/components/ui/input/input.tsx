@@ -38,6 +38,7 @@ export const TextField = React.forwardRef<HTMLInputElement, SuperInputTextPropsT
       type = 'text',
       value,
       variant = 'normal',
+      style,
       ...restProps
     },
     ref
@@ -61,7 +62,7 @@ export const TextField = React.forwardRef<HTMLInputElement, SuperInputTextPropsT
     }
 
     return (
-      <div>
+      <div style={style}>
         {label && (
           <Typography as={'label'} className={s.label} htmlFor={finalId} variant={'body2'}>
             {label}
@@ -88,9 +89,9 @@ export const TextField = React.forwardRef<HTMLInputElement, SuperInputTextPropsT
             />
           )}
           {onReset && !!value && (
-            <Button onClick={onReset}>
+            <button onClick={onReset} className={s.deleteButton}>
               <img src={deleteIcon} />
-            </Button>
+            </button>
           )}
         </div>
         <Typography as={'div'} className={finalSpanClassName}>

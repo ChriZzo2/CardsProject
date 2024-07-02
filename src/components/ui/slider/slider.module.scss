@@ -51,12 +51,15 @@
   justify-content: space-between;
   width: 251px;
   height: 36px;
+  gap: 6px;
 }
 
 .sliderValue {
   border: 1px solid var(--color-dark-300);
-  width: 28px;
-  height: 25px;
+  width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
   text-align: center;
   border-radius: 4px;
 }

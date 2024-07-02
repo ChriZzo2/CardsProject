@@ -1,83 +1,106 @@
-.Checkbox {
-  display: flex;
-  align-items: center;
-  &.CheckboxDisabled {
-      .CheckboxRoot {
-        &[aria-checked='true'] {
-          background-color: var(--color-dark-100);
-          border-color: var(--color-dark-100);
-        }
-      }
-    .CheckboxRoot {
-      border-color: var(--color-dark-100);
-      cursor: auto;
-      &:hover {
-        &:before {
-          background-color: transparent;
-        }
-      }
-    }
-    .CheckboxLabel {
-      color: var(--color-dark-100);
-      cursor: auto;
-    }
-    svg {
-      fill: var(--color-light-700);
-    }
-  }
-}
+// Разобраться с назначением, удалить лишнее
+// .Checkbox {
+//   display: flex;
+//   align-items: center;
+
+//   &.CheckboxDisabled {
+//     .CheckboxRoot {
+//       &[aria-checked='true'] {
+//         background-color: var(--color-dark-100);
+//         border-color: var(--color-dark-100);
+//       }
+//     }
+
+//     .CheckboxRoot {
+//       cursor: auto;
+//       border-color: var(--color-dark-100);
+
+//       &:hover {
+//         &::before {
+//           background-color: transparent;
+//         }
+//       }
+//     }
+
+//     .CheckboxLabel {
+//       cursor: auto;
+//       color: var(--color-dark-100);
+//     }
+
+//     svg {
+//       fill: var(--color-light-700);
+//     }
+//   }
+// }
+
 .CheckboxRoot {
+  cursor: pointer;
+
   position: relative;
-  border: 2px solid var(--color-light-900);
-  background-color: transparent;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  background-color: transparent;
+  border: 2px solid var(--color-light-900);
+  border-radius: 3px;
   outline: none;
+
   transition: all 0.3s;
-  cursor: pointer;
+
+  &::before {
+    pointer-events: none;
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 36px;
+    height: 36px;
+
+    background-color: transparent;
+    border-radius: 50%;
+
+    transition: all 0.3s;
+  }
+
   &:hover {
-    &:before {
+    &::before {
       background-color: var(--color-dark-500);
     }
   }
+
   &:focus {
-    &:before {
+    &::before {
       background-color: var(--color-dark-100);
     }
   }
+
   &:active {
-    &:before {
+    &::before {
       background-color: var(--color-dark-100);
     }
   }
+
   &[aria-checked='true'] {
     background-color: var(--color-light-100);
     border-color: var(--color-light-100);
   }
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: transparent;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    z-index: -1;
-    pointer-events: none;
-    transition: all 0.3s;
-  }
+
   > span {
     width: 18px;
     height: 18px;
   }
 }
+
 .CheckboxLabel {
-  margin-left: 11px;
   cursor: pointer;
+  margin-left: 11px;
 }
