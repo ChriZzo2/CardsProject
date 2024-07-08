@@ -7,17 +7,34 @@ import { Typography } from '@/components/ui/typography'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-export const SectionFilter = () => {
+type SectionFilterType = {
+  minCardsCount: number;
+  maxCardsCount: number;
+  setSliderValue: (value: number[]) => void;
+  onInputValueChangeHandler: (value:string)=>void
+}
+export const SectionFilter = ({maxCardsCount, minCardsCount, setSliderValue, onInputValueChangeHandler}:SectionFilterType) => {
   const [active, setActive] = useState (0)
   
 
+  const onValueChangeHandler = (value: string) => {
+    onInputValueChangeHandler(value)
+  }
+
 const handleButtonClick = (index:number) => {
   setActive(index);
+  
+
+
 };
+
+const onClearHandler = () => {
+  setSliderValue([1, 99]);
+}
   return (
     <div className={s.root}>
       <div className={s.textFieldWrapper}>
-        <TextField onReset={() => {}} value={'a'}/>
+        <TextField onReset={() => {}} onChangeText={onValueChangeHandler} />
       </div>
       <div className={s.cardsButtonWrapper}>
         <Typography as={"p"} variant='body2' className={s.titleButtons}>Show packs cards</Typography>
@@ -27,10 +44,10 @@ const handleButtonClick = (index:number) => {
         </Typography>
       </div>
       <div>
-        <SliderApp value={[1,99]}></SliderApp>
+        <SliderApp value={[minCardsCount,maxCardsCount]} setValue={setSliderValue}></SliderApp>
       </div>
       <div>
-        <Button className={s.clearButton}>
+        <Button className={s.clearButton} onClick={onClearHandler}>
           <img className={s.svgClearIcon} src={clear}></img>Clear Filter
         </Button>
       </div>

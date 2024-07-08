@@ -3,13 +3,19 @@ import { useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import s from './pagination.module.scss'
+import { Typography } from '../typography'
+import { Select } from '../select'
 
 type Props = {
-  currentPage: number
+  items: string
+  currentPage: number 
+  setItems: (value: string) => void
   handlePageChange: (page: number) => void
-  itemsPerPage: number
-  totalItems: number
+  itemsPerPage: number 
+  totalItems: number 
 }
+
+const itemsCelect = [5, 9, 13]
 
 const generatePagination = (totalItems: number, itemsPerPage: number, currentPage: number) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage)
@@ -24,7 +30,7 @@ const generatePagination = (totalItems: number, itemsPerPage: number, currentPag
     for (let i = 1; i <= currentPage; i++) {
       pages.push(i)
     }
-    if (currentPage > 3 && currentPage < totalPages - 4) {
+    if (currentPage > 3 && currentPage < totalPages - 3) {
       pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages]
     } else if (currentPage <= 3) {
       pages = [1, 2, 3, 4, 5, '...', totalPages]
@@ -36,13 +42,13 @@ const generatePagination = (totalItems: number, itemsPerPage: number, currentPag
   return { pages, totalPages }
 }
 
-export const Pagination = ({ currentPage, handlePageChange, itemsPerPage, totalItems }: Props) => {
+export const Pagination = ({ currentPage, handlePageChange, itemsPerPage, totalItems, items, setItems }: Props) => {
   const { pages, totalPages } = useMemo(() => {
     return generatePagination(totalItems, itemsPerPage, currentPage)
   }, [currentPage, itemsPerPage, totalItems])
 
   return (
-    <div>
+    <Typography as='div' className={s.WrapperDiv}>
       <button
         className={s.navigationButton}
         disabled={currentPage === 1}
@@ -78,6 +84,22 @@ export const Pagination = ({ currentPage, handlePageChange, itemsPerPage, totalI
       >
         {'>'}
       </button>
-    </div>
+      <Typography as="div" style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+        <Typography as="div" variant="body2">
+          {' '}
+          Show
+        </Typography>
+        <Select
+          variant="small"
+          items={itemsCelect}
+          onValueChange={setItems}
+          placeholder={String(items)}
+        ></Select>
+        <Typography as="div" variant="body2">
+          {' '}
+          on the page
+        </Typography>
+      </Typography>
+    </Typography>
   )
 }

@@ -11,14 +11,11 @@ import sItem from './selectItem/selectItem.module.scss'
 
 import { SelectItem } from './selectItem/selectItem'
 
-type selectItem = {
-  title: string
-  value: string
-}
+
 
 export type SelectProps = {
   disabled?: boolean
-  items: selectItem[]
+  items: string[] | number[]
   label?: string
   placeholder?: string
   variant?: 'large' | 'small'
@@ -57,11 +54,11 @@ export const Select = forwardRef<ElementRef<typeof SelectRadix.Root>, SelectProp
                   {items.map((item, index) => (
                     <SelectItem
                       className={clsx(variant === 'small' ? sItem.SelectItemSmall : '')}
-                      key={`${item.value}-${index}`}
+                      key={index}
                       ref={ref}
-                      value={item.value}
+                      value={item.toString()}
                     >
-                      {item.title}
+                      {item}
                     </SelectItem>
                   ))}
                 </SelectRadix.Group>

@@ -14,27 +14,17 @@ import Photo from './icon/Photo.jpg'
 import { SectionModal } from '@/components/layout/section/sectionModal/sectionModal'
 import * as Dialog from '@radix-ui/react-dialog'
 
-const photoSchema = z.object({
-  name: z.string().min(1, 'Пожалуйста, введите имя файла'),
-  photo: z.any().optional(),
-})
+import { TextField } from '../input'
+import { useCreateDecksMutation } from '@/services/decks/decks-api'
 
-type PhotoFormValues = z.infer<typeof photoSchema>
+
 export const AddNewDeck = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PhotoFormValues>({
-    resolver: zodResolver(photoSchema),
-  })
+  const [createDecks ] = useCreateDecksMutation()
+ const [value, setValue] = useState<string>('')
+ const [isPrivate, setIsPrivate] = useState<any>(false)
 
   const [photo, setPhoto] = useState<File | null>(null)
 
-  const onSubmit = (data: PhotoFormValues) => {
-    console.log('Сохраненные данные:', data)
-  }
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -43,6 +33,12 @@ export const AddNewDeck = () => {
   }
   const onHandelDeleteClick = () => {
     setPhoto(null)
+  }
+
+  const handleSendDeck =  async () => {
+     await createDecks({isPrivate, name: value})
+     setValue('')
+    
   }
 
   return (
@@ -69,17 +65,19 @@ export const AddNewDeck = () => {
               <img className={s.photoContent} src={Photo} alt="noPhoto" />
             </div>
           )}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormInput
-              control={control}
-              name="name"
+          <div>
+            <TextField
+              
+            
+              value={value}
+              onChangeText={setValue}
               label="Name Pack"
-              error={errors.name?.message}
+              
             />
             {!photo ? (
               <WorkWithImage
                 handlePhotoChange={handlePhotoChange}
-                register={register}
+              
                 Title={'Upload image'}
               />
             ) : (
@@ -90,14 +88,14 @@ export const AddNewDeck = () => {
                 <WorkWithImage
                   className={s.withPhoto}
                   handlePhotoChange={handlePhotoChange}
-                  register={register}
+              
                   Title={'Change image'}
                 />
               </div>
             )}
-          </form>
+          </div>
           <label id="checkbox" className={s.checkboxWrapper}>
-            <Checkbox id="checkbox" />
+            <Checkbox id="checkbox" checked={isPrivate} onCheckedChange={setIsPrivate}/>
             <Typography id="checkbox" as={'span'} variant={'body2'}>
               Private pack
             </Typography>
@@ -106,7 +104,7 @@ export const AddNewDeck = () => {
             <Dialog.Close asChild>
               <Button className={s.cancel}>Cancel</Button>
             </Dialog.Close>
-            <Button>Send</Button>
+            <Button onClick={handleSendDeck}>Send</Button>
           </div>
         </div>
       </div>

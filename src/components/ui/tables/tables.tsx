@@ -26,7 +26,7 @@ type TableRowProps = ComponentPropsWithoutRef<'tr'>
 
 export const TableRow = forwardRef<ElementRef<'tr'>, TableRowProps>(
   ({ className, ...rest }, ref) => {
-    const computedClass = clsx(className)
+    const computedClass = clsx(className, s.tableRow)
 
     return <tr className={computedClass} {...rest} ref={ref} />
   }
