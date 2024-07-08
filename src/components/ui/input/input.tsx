@@ -1,6 +1,5 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, ReactNode, useId, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 
 import s from './input.module.scss'
@@ -35,10 +34,10 @@ export const TextField = React.forwardRef<HTMLInputElement, SuperInputTextPropsT
       onEnter,
       onReset,
       spanClassName,
+      style,
       type = 'text',
       value,
       variant = 'normal',
-      style,
       ...restProps
     },
     ref
@@ -89,7 +88,7 @@ export const TextField = React.forwardRef<HTMLInputElement, SuperInputTextPropsT
             />
           )}
           {onReset && !!value && (
-            <button onClick={onReset} className={s.deleteButton}>
+            <button className={s.deleteButton} onClick={onReset}>
               <img src={deleteIcon} />
             </button>
           )}

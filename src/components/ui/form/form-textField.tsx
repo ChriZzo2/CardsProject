@@ -29,7 +29,7 @@ export const FormInput = <T extends FieldValues>({
       error={error?.message}
       name={fieldName}
       onBlur={onBlur}
-      onChange={onChange}
+      onChangeText={onChange}
       ref={ref}
       {...field}
     />

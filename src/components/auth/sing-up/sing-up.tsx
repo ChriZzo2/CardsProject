@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormInput } from '@/components/ui/form/form-textField'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { omit } from 'remeda'
 import { z } from 'zod'
 
 import s from './sing-up.module.scss'
@@ -23,7 +25,7 @@ const signUpSchema = z
 export type SignUpFormType = z.infer<typeof signUpSchema>
 
 type Props = {
-  onSubmit: (data: SignUpFormType) => void
+  onSubmit: (data: Omit<SignUpFormType, 'confirmPassword'>) => void
 }
 
 export const SignUp = (props: Props) => {
@@ -35,7 +37,9 @@ export const SignUp = (props: Props) => {
     resolver: zodResolver(signUpSchema),
   })
 
-  const handleFormSubmitted = handleSubmit(props.onSubmit)
+  const handleFormSubmitted = handleSubmit(data => {
+    props.onSubmit(omit(data, ['confirmPassword']))
+  })
 
   return (
     <>
@@ -76,9 +80,9 @@ export const SignUp = (props: Props) => {
         <Typography className={s.subtitle} variant={'body2'}>
           Already have an account?
         </Typography>
-        <Typography className={s.signIn} variant={'link1'}>
+        <Button as={Link} className={s.buttonLink} to={'/login'} variant={'link'}>
           Sign In
-        </Typography>
+        </Button>
       </Card>
     </>
   )

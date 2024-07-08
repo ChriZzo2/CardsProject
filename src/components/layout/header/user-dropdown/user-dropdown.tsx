@@ -4,6 +4,7 @@ import { DropDownSeparator } from '@/components/ui/dropDown/dropDownSeparator'
 import { Typography } from '@/components/ui/typography'
 import { ProfleSvg } from '@/images/icons/dropDown/ProfleSvg'
 import { SingOutSvg } from '@/images/icons/dropDown/SingOutSvg'
+import { useLogOutMutation } from '@/services/auth/authApi'
 
 import s from '@/components/ui/dropDown/dropDownMenu.module.scss'
 
@@ -11,18 +12,23 @@ export type UserDropdownProps = {
   email: null | string
   name: string
   photo: string
-  photoDesc: string
 }
 
-export const UserDropdown = ({ email, name, photo, photoDesc }: UserDropdownProps) => {
+export const UserDropdown = ({ email, name, photo }: UserDropdownProps) => {
   //const getInitials = (name: string): string => name[0].toUpperCase() // для чего тут .toUpperCase()?
+  const [logOut] = useLogOutMutation()
+
   const getInitials = (name: string): string => name[0]
 
   const imageDisplay = photo ? (
-    <img alt={photoDesc} className={s.imageIconName} src={photo} />
+    <img alt={'avatar'} className={s.imageIconName} src={photo} />
   ) : (
     <p className={s.imageIconName}>{getInitials(name)}</p>
   )
+
+  const logOutButtonHandler = async () => {
+    await logOut()
+  }
 
   const profileImage = (
     <div className={s.profileContainer}>
@@ -57,7 +63,9 @@ export const UserDropdown = ({ email, name, photo, photoDesc }: UserDropdownProp
         <DropDownSeparator />
         <DropDownItem>
           <SingOutSvg />
-          <Typography variant={'caption'}>Sign out</Typography>
+          <Typography onClick={logOutButtonHandler} variant={'caption'}>
+            Sign out
+          </Typography>
         </DropDownItem>
       </DropDownMenu>
     </div>

@@ -16,7 +16,7 @@ export type HeaderProps =
       isAuthenticated: true
     } & UserDropdownProps)
 
-export const Header = ({ email, isAuthenticated, name, photo, photoDesc }: HeaderProps) => {
+export const Header = ({ email, isAuthenticated, name, photo }: HeaderProps) => {
   return (
     <header className={s.header}>
       <Container>
@@ -24,11 +24,9 @@ export const Header = ({ email, isAuthenticated, name, photo, photoDesc }: Heade
           <a href={'/'}>
             <Logo />
           </a>
-          {isAuthenticated && (
-            <UserDropdown email={email} name={name} photo={photo} photoDesc={photoDesc} />
-          )}
+          {isAuthenticated && <UserDropdown email={email} name={name} photo={photo} />}
           {!isAuthenticated && (
-            <Button as={'a'} href={'/sign-in'} variant={'secondary'}>
+            <Button as={'a'} href={'/login'} variant={'secondary'}>
               Sign In
             </Button>
           )}
