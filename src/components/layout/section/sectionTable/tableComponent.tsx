@@ -1,26 +1,11 @@
-import { PlayCircleIcons } from '@/images/icons/Table/PlayCircleIcons'
-import { Button } from '../../../ui/button'
-import {
-  Table,
-  TableBody,
-  TableDataCell,
-  TableHeadCell,
-  TableHeader,
-  TableRow,
-} from '../../../ui/tables/tables'
-import { EditIcons } from '@/images/icons/Table/EditIcons'
-import { DeleteIcons } from '@/images/icons/Table/DeleteIcons'
-
-
-import { Typography } from '../../../ui/typography'
-
-import s from './tableComponent.module.scss'
-
-import { useState } from 'react'
-import { Pagination } from '@/components/ui/pagination'
-import { SectionFilter } from '../sectionFilter/sectionFilter'
-import SuperSort from './superSort/superSort'
 import { useAppDispatch, useAppSelector } from '@/components/hooks'
+import { Pagination } from '@/components/ui/pagination'
+import { DeleteIcons } from '@/images/icons/Table/DeleteIcons'
+import { EditIcons } from '@/images/icons/Table/EditIcons'
+import { PlayCircleIcons } from '@/images/icons/Table/PlayCircleIcons'
+import { setIsAuthenticated, setMe } from '@/services/auth/auth.slice'
+import { useGetMeQuery } from '@/services/auth/authApi'
+import { useGetDecksQuery } from '@/services/decks/decks-api'
 import {
   setCurrentPage,
   setFind,
@@ -30,25 +15,42 @@ import {
   setOrderBy,
   setSort,
 } from '@/services/features/tableComponentSlice/tableComponent.slice'
-import { useGetDecksQuery } from '@/services/decks/decks-api'
 
+import s from './tableComponent.module.scss'
 
+import { Button } from '../../../ui/button'
+import {
+  Table,
+  TableBody,
+  TableDataCell,
+  TableHeadCell,
+  TableHeader,
+  TableRow,
+} from '../../../ui/tables/tables'
+import { Typography } from '../../../ui/typography'
+import { SectionFilter } from '../sectionFilter/sectionFilter'
+import SuperSort from './superSort/superSort'
 
 export const TableComponent = () => {
-  const decks = useAppSelector(state => state.tableComponent)
-  
-  
+  const decks = useAppSelector(state => state.tableComponentSlice)
+
   const { data } = useGetDecksQuery({
     currentPage: decks.currentPage,
     itemsPerPage: Number(decks.items),
-    minCardsCount: decks.minSliderValue,
     maxCardsCount: decks.maxSliderValue,
+    minCardsCount: decks.minSliderValue,
     name: decks.name,
     orderBy: decks.orderBy,
   })
-  
-  
+
+  const { data: me } = useGetMeQuery()
+
   const dispatch = useAppDispatch()
+
+  if (me) {
+    dispatch(setMe({ ...me }))
+    dispatch(setIsAuthenticated(true))
+  }
   const handleSliderValueChange = (value: number[]) => {
     dispatch(setMinSliderValue(value[0]))
     dispatch(setMaxSliderValue(value[1]))
@@ -65,6 +67,7 @@ export const TableComponent = () => {
     }
     if (decks.orderBy) {
       const orderArray = decks.orderBy.split('-')
+
       if (orderArray[0] === value) {
         dispatch(setOrderBy(`${value}-desc`))
       }
@@ -82,6 +85,7 @@ export const TableComponent = () => {
       return <span>•</span>
     } else {
       const orderArray = decks.orderBy.split('-')
+
       if (!orderArray || orderArray[0] !== value) {
         return <span>•</span>
       }
@@ -102,13 +106,13 @@ export const TableComponent = () => {
   }
 
   return (
-    <Typography as="div" className={s.Wrapper}>
-      <Typography as="div" className={s.FilterWrapper}>
+    <Typography as={'div'} className={s.Wrapper}>
+      <Typography as={'div'} className={s.FilterWrapper}>
         <SectionFilter
           maxCardsCount={decks.maxSliderValue}
           minCardsCount={decks.minSliderValue}
-          setSliderValue={handleSliderValueChange}
           onInputValueChangeHandler={onInputValueChangeHandler}
+          setSliderValue={handleSliderValueChange}
         />
       </Typography>
       <Table>
@@ -141,7 +145,7 @@ export const TableComponent = () => {
                 <TableDataCell>{items.updated}</TableDataCell>
                 <TableDataCell>{items.author.name}</TableDataCell>
                 <TableDataCell>
-                  <Typography as="div" style={{ display: 'flex', gap: '4px' }}>
+                  <Typography as={'div'} style={{ display: 'flex', gap: '4px' }}>
                     <Button variant={'icon'}>
                       <PlayCircleIcons />
                     </Button>
@@ -160,14 +164,14 @@ export const TableComponent = () => {
       </Table>
 
       {data && (
-        <Typography as="div" className={s.PaginationWrapper}>
+        <Typography as={'div'} className={s.PaginationWrapper}>
           <Pagination
             currentPage={decks.currentPage}
-            items={decks.items.toString()}
             handlePageChange={handlePageChange}
+            items={decks.items.toString()}
+            itemsPerPage={data.pagination.itemsPerPage}
             setItems={setItem}
             totalItems={data.pagination.totalItems}
-            itemsPerPage={data.pagination.itemsPerPage}
           />
         </Typography>
       )}

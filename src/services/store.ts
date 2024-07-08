@@ -1,21 +1,23 @@
-import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit'
-import { decksApi } from './decks/decks-api'
+import { authSlice } from '@/services/auth/auth.slice'
+import { baseApi } from '@/services/base-api'
+import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-import { authSliceApi } from './auth/authApi'
-import { authSliceReducers } from '../components/auth/authSlice/authSlice'
-import { tableComponentSliceReducer } from './features/tableComponentSlice/tableComponent.slice'
+import { decksApi } from './decks/decks-api'
+import {
+  decksSlice,
+  tableComponentSliceReducer,
+} from './features/tableComponentSlice/tableComponent.slice'
 
 const store = configureStore({
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(decksApi.middleware),
   reducer: {
-    tableComponent: tableComponentSliceReducer,
-    authSlicereducers: authSliceReducers,
-    [authSliceApi.reducerPath]: authSliceApi.reducer,
-    [decksApi.reducerPath]: decksApi.reducer,
+    [authSlice.name]: authSlice.reducer,
+    [baseApi.reducerPath]: decksApi.reducer,
+    [decksSlice.name]: tableComponentSliceReducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(decksApi.middleware).concat(authSliceApi.middleware),
 })
+
 setupListeners(store.dispatch)
 
 export type AppDispatch = typeof store.dispatch

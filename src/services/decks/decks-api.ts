@@ -1,32 +1,24 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { url } from 'inspector'
-import { DeckPostParams, DecksParamsType, DecksType, DeckType } from './decks-api.type'
+import { baseApi } from '@/services/base-api'
 
-export const decksApi = createApi({
-  reducerPath: 'decksApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.flashcards.andrii.es/',
-    credentials: 'include',
-    prepareHeaders: headers => {
-      headers.append('x-auth-skip', 'true')
-    },
-  }),
+import { DeckPostParams, DeckType, DecksParamsType, DecksType } from './decks-api.type'
+
+export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getDecks: builder.query<DecksType, DecksParamsType>({
-      query: params => {
-        return { url: 'v2/decks', params: params ?? {} }
-      },
-    }),
     createDecks: builder.mutation<DeckType, DeckPostParams>({
       query: params => {
         return {
-          url: 'v1/decks',
-          method: 'POST',
           body: params,
+          method: 'POST',
+          url: 'v1/decks',
         }
+      },
+    }),
+    getDecks: builder.query<DecksType, DecksParamsType>({
+      query: params => {
+        return { params: params ?? {}, url: 'v2/decks' }
       },
     }),
   }),
 })
 
-export const { useGetDecksQuery, useCreateDecksMutation } = decksApi
+export const { useCreateDecksMutation, useGetDecksQuery } = decksApi

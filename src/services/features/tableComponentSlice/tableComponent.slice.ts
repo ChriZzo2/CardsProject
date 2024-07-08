@@ -1,60 +1,61 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface TableComponentState {
-  sort: string
-  items: number
-  currentPage: number
-  orderBy: string | null
-  minSliderValue: number
-  maxSliderValue: number
-  name: string
   authorId: string
+  currentPage: number
+  items: number
+  maxSliderValue: number
+  minSliderValue: number
+  name: string
+  orderBy: null | string
+  sort: string
 }
 
 const initialState: TableComponentState = {
-  sort: '',
-  items: 5,
-  currentPage: 1,
-  orderBy: null,
-  minSliderValue: 1,
-  maxSliderValue: 99,
-  name: '',
   authorId: '',
+  currentPage: 1,
+  items: 5,
+  maxSliderValue: 99,
+  minSliderValue: 1,
+  name: '',
+  orderBy: null,
+  sort: '',
 }
 
-const slice = createSlice({
-  name: 'tableComponentSlice',
+export const decksSlice = createSlice({
   initialState,
+  name: 'tableComponentSlice',
   reducers: {
-    setSort: (state, action: PayloadAction<string>) => {
-      state.sort = action.payload
-    },
-    setItems: (state, action: PayloadAction<number>) => {
-      state.items = action.payload
+    setAutorId: (state, action: PayloadAction<string>) => {
+      state.authorId = action.payload
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
     },
-    setOrderBy: (state, action: PayloadAction<string | null>) => {
-      state.orderBy = action.payload
+    setFind: (state, action: PayloadAction<string>) => {
+      state.name = action.payload
     },
-    setMinSliderValue: (state, action: PayloadAction<number>) => {
-      state.minSliderValue = action.payload
+    setItems: (state, action: PayloadAction<number>) => {
+      state.items = action.payload
     },
     setMaxSliderValue: (state, action: PayloadAction<number>) => {
       state.maxSliderValue = action.payload
     },
-    setFind: (state, action: PayloadAction<string>) => {
-      state.name = action.payload
+    setMinSliderValue: (state, action: PayloadAction<number>) => {
+      state.minSliderValue = action.payload
     },
-    setAutorId: (state, action: PayloadAction<string>) => {
-      state.authorId = action.payload;
-    }
+    setOrderBy: (state, action: PayloadAction<null | string>) => {
+      state.orderBy = action.payload
+    },
+    setSort: (state, action: PayloadAction<string>) => {
+      state.sort = action.payload
+    },
   },
 })
 
-export const tableComponentSliceReducer = slice.reducer
+export const tableComponentSliceReducer = decksSlice.reducer
 export const {
+  setAutorId,
   setCurrentPage,
   setFind,
   setItems,
@@ -62,5 +63,4 @@ export const {
   setMinSliderValue,
   setOrderBy,
   setSort,
-  setAutorId,
-} = slice.actions
+} = decksSlice.actions

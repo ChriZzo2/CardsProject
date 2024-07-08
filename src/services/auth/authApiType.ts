@@ -1,10 +1,11 @@
-export interface authApi {
+export interface AuthApi {
   avatar: string
-  id: number
+  created: string
   email: string
+  id: string
   isEmailVerified: boolean
   name: string
-  created: string
+  success?: boolean
   updated: string
 }
 
@@ -14,22 +15,22 @@ export interface LoginResponse {
 }
 
 export interface LoginArgt {
-  password: string
   email: string
-  rememberMe: boolean
+  password: string
+  rememberMe?: boolean
 }
 
 export interface SignUpType {
-  password: string
   email: string
+  password: string
 }
 
 export interface SingUpResponseType {
   avatar: string
-  id: number
+  created: string
   email: string
+  id: number
   isEmailVerified: boolean
   name: string
-  created: string
   updated: string
 }
