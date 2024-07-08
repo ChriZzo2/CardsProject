@@ -1,18 +1,22 @@
 .SelectItem {
-  padding: 6px 11px;
   cursor: pointer;
+  padding: 6px 11px;
   outline: none;
   transition: all 0.3s;
+
   &.SelectItemSmall {
     padding: 0 6px;
   }
+
   &:hover,
   &:focus {
     background-color: var(--color-accent-900);
+
     .SelectItemText {
       color: var(--color-accent-300);
     }
   }
+
   .SelectItemText {
     transition: all 0.3s;
   }

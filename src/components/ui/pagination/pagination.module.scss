@@ -1,20 +1,25 @@
 .paginationButton,
 .navigationButton,
 .ellipsis {
-  background-color: black;
-  color: white;
-  border: none;
-  height: 24px;
-  width: 24px;
   cursor: pointer;
-  margin: 0 6px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  margin: 0 6px;
+
+  color: white;
+
+  background-color: black;
+  border: none;
 }
+
 .activePageButton {
-  background-color: white;
   color: black;
+  background-color: white;
   border-radius: 2px;
 }
 
@@ -26,14 +31,24 @@
 .paginationButton:active:not(:disabled),
 .paginationButton:focus:not(:disabled),
 .navigationButton:active {
-  background-color: white;
   color: black;
-  outline: none;
+  background-color: white;
   border-radius: 2px;
+  outline: none;
 }
 
 .navigationButton:disabled {
-  background: transparent;
-  color: grey;
   cursor: not-allowed;
+  color: grey;
+  background: transparent;
+}
+
+.WrapperParinated {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.WrapperDiv {
+  display: flex;
 }
