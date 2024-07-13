@@ -143,7 +143,7 @@ export const TableComponent = () => {
         </TableHeader>
         <TableBody>
           {data?.items.map(items => {
-            console.log(items.updated)
+            
             return (
               <TableRow key={items.id}>
                 <TableDataCell>
@@ -164,8 +164,8 @@ export const TableComponent = () => {
                 <TableDataCell className={s.td3}>{items.author.name}</TableDataCell>
                 <TableDataCell className={s.td4}>
                   <Typography
-                    as={'div'}
-                    style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}
+                    as={'div'} className={s.icons}
+                    
                   >
                     {items.author.id === me?.id && (
                       <Button variant={'icon'} onClick={() => alert('9')}>

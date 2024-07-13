@@ -39,17 +39,27 @@
 }
 
 .td1 {
+  font-size: var(--font-size-s);
   width: 150px;
 }
 
 .td2 {
+  font-size: var(--font-size-s);
   width: 180px;
 }
 
 .td3 {
+  font-size: var(--font-size-s);
   width: 200px;
 }
 
 .td4 {
+  font-size: var(--font-size-s);
   width: 120px;
+}
+
+.icons {
+  display: flex;
+  gap: 11px;
+  justify-content: center;
 }
