@@ -30,9 +30,11 @@ import {
 import { Typography } from '../../../ui/typography'
 import { SectionFilter } from '../sectionFilter/sectionFilter'
 import SuperSort from './superSort/superSort'
+import { CurrentData } from './data/data'
 
 export const TableComponent = () => {
   const decks = useAppSelector(state => state.tableComponentSlice)
+  const authorId = useAppSelector(state => state.tableComponentSlice.authorId)
 
   const { data } = useGetDecksQuery({
     currentPage: decks.currentPage,
@@ -41,7 +43,11 @@ export const TableComponent = () => {
     minCardsCount: decks.minSliderValue,
     name: decks.name,
     orderBy: decks.orderBy,
+    authorId,
+    favoritedBy: decks.favoritedBy,
   })
+
+  
 
   const { data: me } = useGetMeQuery()
 
@@ -109,6 +115,7 @@ export const TableComponent = () => {
     <Typography as={'div'} className={s.Wrapper}>
       <Typography as={'div'} className={s.FilterWrapper}>
         <SectionFilter
+          authorId={decks.authorId}
           maxCardsCount={decks.maxSliderValue}
           minCardsCount={decks.minSliderValue}
           onInputValueChangeHandler={onInputValueChangeHandler}
@@ -135,6 +142,7 @@ export const TableComponent = () => {
         </TableHeader>
         <TableBody>
           {data?.items.map(items => {
+            console.log(items.updated)
             return (
               <TableRow key={items.id}>
                 <TableDataCell>
@@ -142,19 +150,20 @@ export const TableComponent = () => {
                   {items.name}
                 </TableDataCell>
                 <TableDataCell>{items.cardsCount}</TableDataCell>
-                <TableDataCell>{items.updated}</TableDataCell>
+                
+                <TableDataCell><CurrentData currentUpData = {items.updated}/></TableDataCell>
                 <TableDataCell>{items.author.name}</TableDataCell>
                 <TableDataCell>
-                  <Typography as={'div'} style={{ display: 'flex', gap: '4px' }}>
+                  <Typography as={'div'} style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
+                    {(items.author.id === me?.id) && <Button variant={'icon'} onClick={() => alert('9')}>
+                      <EditIcons />
+                    </Button>}
                     <Button variant={'icon'}>
                       <PlayCircleIcons />
                     </Button>
-                    <Button variant={'icon'}>
-                      <EditIcons />
-                    </Button>
-                    <Button variant={'icon'}>
+                   {(items.author.id === me?.id)  && <Button disabled={!(items.author.id === me?.id)} variant={'icon'}>
                       <DeleteIcons />
-                    </Button>
+                    </Button> }
                   </Typography>
                 </TableDataCell>
               </TableRow>

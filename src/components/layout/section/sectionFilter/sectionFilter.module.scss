@@ -26,16 +26,17 @@
   box-shadow: none;
 
   &:hover {
-    background: var(--color-dark-700);
+    background: var(--color-accent-500);
   }
 }
 
 .LButton {
-  border-radius: 2px 0 0 2px;
+  border-radius: 0 2px 2px 0;
 }
 
 .RButton {
-  border-radius: 0 2px 2px 0;
+  
+  border-radius: 2px 0 0 2px;
 }
 
 .Button:active {

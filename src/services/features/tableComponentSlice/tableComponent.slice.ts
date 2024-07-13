@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface TableComponentState {
+  favoritedBy:string
   authorId: string
   currentPage: number
   items: number
@@ -12,6 +13,7 @@ interface TableComponentState {
 }
 
 const initialState: TableComponentState = {
+  favoritedBy: '',
   authorId: '',
   currentPage: 1,
   items: 5,
@@ -50,6 +52,9 @@ export const decksSlice = createSlice({
     setSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload
     },
+    setFavoritedBy: (state, action: PayloadAction<string>) => {
+      state.favoritedBy = action.payload
+    },
   },
 })
 
@@ -63,4 +68,5 @@ export const {
   setMinSliderValue,
   setOrderBy,
   setSort,
+  setFavoritedBy,
 } = decksSlice.actions

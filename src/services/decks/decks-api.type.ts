@@ -1,12 +1,12 @@
 export interface Author {
-  id: number
+  id: string
   name: string
 }
 
 export interface Item {
   isFavorite: boolean
   author: Author
-  id: number
+  id: string
   userId: string
   name: string
   isPrivate: boolean
