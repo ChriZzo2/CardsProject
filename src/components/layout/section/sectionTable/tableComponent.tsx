@@ -157,12 +157,12 @@ export const TableComponent = () => {
                   <SuperSort onChange={onHandleSort} sort={decks.sort} value={'name'}></SuperSort>
                   {items.name}
                 </TableDataCell>
-                <TableDataCell>{items.cardsCount}</TableDataCell>
-                <TableDataCell>
+                <TableDataCell className={s.td1} >{items.cardsCount}</TableDataCell>
+                <TableDataCell className={s.td2}>
                   <CurrentData currentUpData={items.updated} />
                 </TableDataCell>
-                <TableDataCell>{items.author.name}</TableDataCell>
-                <TableDataCell>
+                <TableDataCell className={s.td3}>{items.author.name}</TableDataCell>
+                <TableDataCell className={s.td4}>
                   <Typography
                     as={'div'}
                     style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}
