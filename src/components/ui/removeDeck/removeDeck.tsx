@@ -10,14 +10,21 @@ import { Typography } from '../typography'
 
 import iconCloseButton from './../addNewDeck/icon/iconCloseButton.svg'
 import React from 'react'
+import { useAppDispatch } from '@/components/hooks'
+import { setDeckId } from '@/services/features/tableComponentSlice/tableComponent.slice'
 
 interface RemoveDeckProps {
     trigger: React.ReactNode;
-    onDelete?: () => void;
-    
+    id:string
   }
 
-export const RemoveDeck = ({trigger}: RemoveDeckProps) => {
+  
+
+export const RemoveDeck = ({trigger,id}: RemoveDeckProps) => {
+    const dispatch = useAppDispatch()
+    const onHandelDeleted = (id: string) => {
+        dispatch(setDeckId(id))
+      }
   return (
     <SectionModal title='' trigger={trigger}>
       <div className={s.container}>
@@ -39,7 +46,7 @@ export const RemoveDeck = ({trigger}: RemoveDeckProps) => {
             <Dialog.Close asChild>
               <Button className={s.cancel}>Cancel</Button>
             </Dialog.Close>
-            <Button>Delete Deck</Button>
+            <Button onClick={() => onHandelDeleted(id)}>Delete Deck</Button>
           </div>
         
       </div>

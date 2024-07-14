@@ -5,7 +5,7 @@ import { EditIcons } from '@/images/icons/Table/EditIcons'
 import { PlayCircleIcons } from '@/images/icons/Table/PlayCircleIcons'
 import { setIsAuthenticated, setMe } from '@/services/auth/auth.slice'
 import { useGetMeQuery } from '@/services/auth/authApi'
-import { useDeletedDecksMutation, useGetDecksQuery } from '@/services/decks/decks-api'
+import { useGetDecksQuery } from '@/services/decks/decks-api'
 import {
   setCurrentPage,
   setDeckId,
@@ -170,27 +170,24 @@ export const TableComponent = () => {
                 <TableDataCell className={s.td4}>
                   <Typography as={'div'} className={s.icons}>
                     {items.author.id === me?.id && (
-                      <RemoveDeck
-                        trigger={
+                      
                           <Button variant={'icon'} onClick={() => alert('9')}>
                             <EditIcons />
                           </Button>
-                        }
-                      />
+                       
                     )}
-                    <RemoveDeck
-                      trigger={
+                    
                         <Button variant={'icon'}>
                           <PlayCircleIcons />
                         </Button>
-                      }
-                    />
+                      
 
                     {items.author.id === me?.id && (
-                      <RemoveDeck
+                      <RemoveDeck id={items.id}
                         trigger={
                           <Button
-                            onClick={() => onHandelDeleted(items.id)}
+                          id={items.id}
+                            
                             disabled={!(items.author.id === me?.id)}
                             variant={'icon'}
                           >
