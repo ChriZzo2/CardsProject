@@ -4,23 +4,23 @@ export interface Author {
 }
 
 export interface Item {
-  isFavorite: boolean
   author: Author
-  id: string
-  userId: string
-  name: string
-  isPrivate: boolean
+  cardsCount: number
   cover: string
   created: string
+  id: string
+  isFavorite: boolean
+  isPrivate: boolean
+  name: string
   updated: string
-  cardsCount: number
+  userId: string
 }
 
 export interface Pagination {
   currentPage: number
   itemsPerPage: number
-  totalPages: number
   totalItems: number
+  totalPages: number
 }
 
 export interface DecksType {
@@ -28,28 +28,37 @@ export interface DecksType {
   pagination: Pagination
 }
 export interface DeckType {
-  id: number
-  userId: string
-  name: string
-  isPrivate: boolean
+  cardsCount: number
   cover: string
   created: string
+  id: number
+  isPrivate: boolean
+  name: string
   updated: string
-  cardsCount: number
+  userId: string
+}
+
+export interface DecksPatchParams {
+  id: string
+  params: {
+    cover?: string
+    isPrivate: boolean
+    name: string
+  }
 }
 export interface DeckPostParams {
   cover?: string
-  name: string
   isPrivate: boolean
+  name: string
 }
 
 export interface DecksParamsType {
-  orderBy: null | string
-  minCardsCount: number
-  maxCardsCount: number
-  name: string
   authorId?: string
-  favoritedBy?: string
   currentPage: number
+  favoritedBy?: string
   itemsPerPage: number
+  maxCardsCount: number
+  minCardsCount: number
+  name: string
+  orderBy: null | string
 }

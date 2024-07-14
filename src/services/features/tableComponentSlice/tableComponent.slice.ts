@@ -1,29 +1,33 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface TableComponentState {
-  favoritedBy:string
   authorId: string
   currentPage: number
+  deckId: string
+  deckName: string
+  deckPrivacy: boolean
+  favoritedBy: string
   items: number
   maxSliderValue: number
   minSliderValue: number
   name: string
   orderBy: null | string
   sort: string
-  deckId: string
 }
 
 const initialState: TableComponentState = {
-  favoritedBy: '',
   authorId: '',
   currentPage: 1,
+  deckId: '',
+  deckName: '',
+  deckPrivacy: false,
+  favoritedBy: '',
   items: 5,
   maxSliderValue: 99,
   minSliderValue: 0,
   name: '',
   orderBy: null,
   sort: '',
-  deckId: ''
 }
 
 export const decksSlice = createSlice({
@@ -35,6 +39,18 @@ export const decksSlice = createSlice({
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
+    },
+    setDeckId: (state, action: PayloadAction<string>) => {
+      state.deckId = action.payload
+    },
+    setDeckName: (state, action: PayloadAction<string>) => {
+      state.deckName = action.payload
+    },
+    setDeckPrivacy: (state, action: PayloadAction<boolean>) => {
+      state.deckPrivacy = action.payload
+    },
+    setFavoritedBy: (state, action: PayloadAction<string>) => {
+      state.favoritedBy = action.payload
     },
     setFind: (state, action: PayloadAction<string>) => {
       state.name = action.payload
@@ -54,25 +70,20 @@ export const decksSlice = createSlice({
     setSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload
     },
-    setFavoritedBy: (state, action: PayloadAction<string>) => {
-      state.favoritedBy = action.payload
-    },
-    setDeckId: (state, action: PayloadAction<string>) => {
-      state.deckId = action.payload
-    }
   },
 })
 
-export const tableComponentSliceReducer = decksSlice.reducer
 export const {
   setAutorId,
   setCurrentPage,
+  setDeckId,
+  setDeckName,
+  setDeckPrivacy,
+  setFavoritedBy,
   setFind,
   setItems,
   setMaxSliderValue,
   setMinSliderValue,
   setOrderBy,
   setSort,
-  setFavoritedBy,
-  setDeckId,
 } = decksSlice.actions

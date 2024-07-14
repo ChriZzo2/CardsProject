@@ -1,5 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/components/hooks'
+import { EditDeck } from '@/components/ui/editDeck/editDeck'
 import { Pagination } from '@/components/ui/pagination'
+import { RemoveDeck } from '@/components/ui/removeDeck/removeDeck'
 import { DeleteIcons } from '@/images/icons/Table/DeleteIcons'
 import { EditIcons } from '@/images/icons/Table/EditIcons'
 import { PlayCircleIcons } from '@/images/icons/Table/PlayCircleIcons'
@@ -30,10 +32,9 @@ import {
 } from '../../../ui/tables/tables'
 import { Typography } from '../../../ui/typography'
 import { SectionFilter } from '../sectionFilter/sectionFilter'
-import SuperSort from './superSort/superSort'
-import { CurrentData } from './data/data'
 import defaultIcon from './../../../ui/addNewDeck/icon/Photo.jpg'
-import { RemoveDeck } from '@/components/ui/removeDeck/removeDeck'
+import { CurrentData } from './data/data'
+import SuperSort from './superSort/superSort'
 
 const defIcon = defaultIcon
 
@@ -42,14 +43,14 @@ export const TableComponent = () => {
   const authorId = useAppSelector(state => state.tableComponentSlice.authorId)
 
   const { data } = useGetDecksQuery({
+    authorId,
     currentPage: decks.currentPage,
+    favoritedBy: decks.favoritedBy,
     itemsPerPage: Number(decks.items),
     maxCardsCount: decks.maxSliderValue,
     minCardsCount: decks.minSliderValue,
     name: decks.name,
     orderBy: decks.orderBy,
-    authorId,
-    favoritedBy: decks.favoritedBy,
   })
 
   const { data: me } = useGetMeQuery()
@@ -113,10 +114,13 @@ export const TableComponent = () => {
   const setItem = (value: string) => {
     dispatch(setItems(+value))
   }
-
-  const onHandelDeleted = (id: string) => {
+  const handleDeleteDeck = (id: string) => {
     dispatch(setDeckId(id))
   }
+  const editCurrectDeck = (id: string) => {
+    dispatch(setDeckId(id))
+  }
+
   return (
     <Typography as={'div'} className={s.Wrapper}>
       <Typography as={'div'} className={s.FilterWrapper}>
@@ -170,25 +174,26 @@ export const TableComponent = () => {
                 <TableDataCell className={s.td4}>
                   <Typography as={'div'} className={s.icons}>
                     {items.author.id === me?.id && (
-                      
-                          <Button variant={'icon'} onClick={() => alert('9')}>
+                      <EditDeck
+                        trigger={
+                          <Button onClick={() => editCurrectDeck(items.id)} variant={'icon'}>
                             <EditIcons />
                           </Button>
-                       
+                        }
+                      />
                     )}
-                    
-                        <Button variant={'icon'}>
-                          <PlayCircleIcons />
-                        </Button>
-                      
+
+                    <Button variant={'icon'}>
+                      <PlayCircleIcons />
+                    </Button>
 
                     {items.author.id === me?.id && (
-                      <RemoveDeck id={items.id}
+                      <RemoveDeck
                         trigger={
                           <Button
-                          id={items.id}
-                            
                             disabled={!(items.author.id === me?.id)}
+                            id={items.id}
+                            onClick={() => handleDeleteDeck(items.id)}
                             variant={'icon'}
                           >
                             <DeleteIcons />

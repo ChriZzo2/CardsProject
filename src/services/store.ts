@@ -4,17 +4,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { decksApi } from './decks/decks-api'
-import {
-  decksSlice,
-  tableComponentSliceReducer,
-} from './features/tableComponentSlice/tableComponent.slice'
+import { decksSlice } from './features/tableComponentSlice/tableComponent.slice'
 
 const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(decksApi.middleware),
   reducer: {
     [authSlice.name]: authSlice.reducer,
     [baseApi.reducerPath]: decksApi.reducer,
-    [decksSlice.name]: tableComponentSliceReducer,
+    [decksSlice.name]: decksSlice.reducer,
   },
 })
 

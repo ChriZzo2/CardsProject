@@ -1,17 +1,12 @@
-import { AddNewDeck } from "@/components/ui/addNewDeck/addNewDeck"
+import { AddNewDeck } from '@/components/ui/addNewDeck/addNewDeck'
 
-import { TableComponent } from "./sectionTable/tableComponent"
-import { RemoveDeck } from "@/components/ui/removeDeck/removeDeck"
+import { TableComponent } from './sectionTable/tableComponent'
 
-
-
-
-export const Section = ()=>{
-
-    
-    return <>
-    <RemoveDeck/>
-    <AddNewDeck/>
-    <TableComponent/>
+export const Section = () => {
+  return (
+    <>
+      <AddNewDeck />
+      <TableComponent />
     </>
+  )
 }
