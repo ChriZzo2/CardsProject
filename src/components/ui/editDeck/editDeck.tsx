@@ -1,25 +1,33 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/components/hooks'
 import { SectionModal } from '@/components/layout/section/sectionModal/sectionModal'
-import { useCreateDecksMutation } from '@/services/decks/decks-api'
+import { useUpdateDeckMutation } from '@/services/decks/decks-api'
+import {
+  setDeckName,
+  setDeckPrivacy,
+} from '@/services/features/tableComponentSlice/tableComponent.slice'
 import * as Dialog from '@radix-ui/react-dialog'
 
-import s from './addNewDeck.module.scss'
+import s from '../../ui/addNewDeck/addNewDeck.module.scss'
 
+import { WorkWithImage } from '../../ui/addNewDeck/component/workWithImage'
+import Photo from '../../ui/addNewDeck/icon/Photo.jpg'
+import iconCloseButton from '../../ui/addNewDeck/icon/iconCloseButton.svg'
 import { Button } from '../button'
 import { Checkbox } from '../checkbox'
 import { TextField } from '../input'
 import { Typography } from '../typography'
-import { WorkWithImage } from './component/workWithImage'
-import Photo from './icon/Photo.jpg'
-import iconCloseButton from './icon/iconCloseButton.svg'
 
-export const AddNewDeck = () => {
-  const [createDecks] = useCreateDecksMutation()
-  const [value, setValue] = useState<string>('')
-  const [isPrivate, setIsPrivate] = useState<any>(false)
+type Props = {
+  trigger: React.ReactNode
+}
 
+export const EditDeck = ({ trigger }: Props) => {
+  const deck = useAppSelector(state => state.tableComponentSlice)
   const [photo, setPhoto] = useState<File | null>(null)
+  const dispatch = useAppDispatch()
+  const [updateDeck] = useUpdateDeckMutation()
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -30,19 +38,27 @@ export const AddNewDeck = () => {
     setPhoto(null)
   }
 
-  const handleSendDeck = async () => {
-    await createDecks({ isPrivate, name: value })
-    setValue('')
+  const changeInputValue = (value: string) => {
+    dispatch(setDeckName(value))
   }
 
-  const addNewDecksButton = <Button variant={'primary'}>Add New Deсk</Button>
+  const changeInputChecked = (checked: boolean) => {
+    dispatch(setDeckPrivacy(checked))
+  }
+
+  const handleSendDeck = async () => {
+    await updateDeck({
+      id: deck.deckId,
+      params: { isPrivate: deck.deckPrivacy, name: deck.deckName },
+    })
+  }
 
   return (
-    <SectionModal title={'Decks list'} trigger={addNewDecksButton}>
+    <SectionModal title={''} trigger={trigger}>
       <div className={s.container}>
         <div className={s.header}>
           <Typography as={'h3'} className={s.Title} variant={'h3'}>
-            Add New Deck
+            Edit Pack
           </Typography>
           <Dialog.Close asChild>
             <Button className={s.closeWindow}>
@@ -62,7 +78,7 @@ export const AddNewDeck = () => {
             </div>
           )}
           <div>
-            <TextField label={'Name Pack'} onChangeText={setValue} value={value} />
+            <TextField label={'Name Pack'} onChangeText={changeInputValue} value={deck.deckName} />
             {!photo ? (
               <WorkWithImage Title={'Upload image'} handlePhotoChange={handlePhotoChange} />
             ) : (
@@ -79,10 +95,12 @@ export const AddNewDeck = () => {
             )}
           </div>
           <label className={s.checkboxWrapper} id={'checkbox'}>
-            <Checkbox checked={isPrivate} id={'checkbox'} onCheckedChange={setIsPrivate} />
-            <Typography as={'span'} id={'checkbox'} variant={'body2'}>
-              Private pack
-            </Typography>
+            <Checkbox
+              checked={deck.deckPrivacy}
+              id={'checkbox'}
+              label={'Private pack'}
+              onCheckedChange={changeInputChecked}
+            />
           </label>
           <div className={s.buttonWrapper}>
             <Dialog.Close asChild>

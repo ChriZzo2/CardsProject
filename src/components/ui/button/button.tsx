@@ -13,13 +13,17 @@ export type ButtonProps<T extends ElementType = 'button'> = {
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
   const {
     as: Component = 'button',
+    children,
     className,
     fullWidth = false,
     variant = 'primary',
-    children,
     ...rest
   } = props
   const buttonClass = clsx(s.button, s[variant], fullWidth && s.fullWidth)
 
-  return <Component className={`${buttonClass} ${className}`} {...rest} >{children}</Component>
+  return (
+    <Component className={`${buttonClass} ${className}`} {...rest}>
+      {children}
+    </Component>
+  )
 }
