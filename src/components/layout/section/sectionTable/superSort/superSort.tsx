@@ -1,6 +1,7 @@
 import up from './../icon/up.svg'
 import down from './../icon/down.svg'
 import React from 'react'
+import { useCreateDecksMutation } from '@/services/decks/decks-api'
 
 const upIcon = up
 const downIcon = down
@@ -23,6 +24,7 @@ export const pureChange = (sort: string, down: string, up: string) => {
 }
 
 const SuperSort: React.FC<SuperSortType> = (
+    
     {
         sort, value, onChange
     }
@@ -34,7 +36,8 @@ const SuperSort: React.FC<SuperSortType> = (
         debugger
         onChange(pureChange(sort, down, up))
     }
-
+    // const [createDecks] = useCreateDecksMutation()
+    // const icons = createDecks({cover})
     const icon = sort === down
         ? downIcon
         : sort === up
@@ -46,7 +49,7 @@ const SuperSort: React.FC<SuperSortType> = (
             id={'-sort-' + value}
             onClick={onChangeCallback}
         >
-            сделать иконку
+            
             <img
                 id={'-icon-' + sort}
                 src={icon}

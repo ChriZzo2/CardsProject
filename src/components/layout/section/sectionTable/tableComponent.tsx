@@ -8,6 +8,7 @@ import { useGetMeQuery } from '@/services/auth/authApi'
 import { useGetDecksQuery } from '@/services/decks/decks-api'
 import {
   setCurrentPage,
+  setDeckId,
   setFind,
   setItems,
   setMaxSliderValue,
@@ -31,6 +32,10 @@ import { Typography } from '../../../ui/typography'
 import { SectionFilter } from '../sectionFilter/sectionFilter'
 import SuperSort from './superSort/superSort'
 import { CurrentData } from './data/data'
+import defaultIcon from './../../../ui/addNewDeck/icon/Photo.jpg'
+import { RemoveDeck } from '@/components/ui/removeDeck/removeDeck'
+
+const defIcon = defaultIcon
 
 export const TableComponent = () => {
   const decks = useAppSelector(state => state.tableComponentSlice)
@@ -46,8 +51,6 @@ export const TableComponent = () => {
     authorId,
     favoritedBy: decks.favoritedBy,
   })
-
-  
 
   const { data: me } = useGetMeQuery()
 
@@ -111,6 +114,9 @@ export const TableComponent = () => {
     dispatch(setItems(+value))
   }
 
+  const onHandelDeleted = (id: string) => {
+    dispatch(setDeckId(id))
+  }
   return (
     <Typography as={'div'} className={s.Wrapper}>
       <Typography as={'div'} className={s.FilterWrapper}>
@@ -122,6 +128,7 @@ export const TableComponent = () => {
           setSliderValue={handleSliderValueChange}
         />
       </Typography>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -142,28 +149,53 @@ export const TableComponent = () => {
         </TableHeader>
         <TableBody>
           {data?.items.map(items => {
-            console.log(items.updated)
             return (
               <TableRow key={items.id}>
                 <TableDataCell>
+                  <a className={s.deckIconWrapper}>
+                    {items.cover ? (
+                      <img className={s.deckIcon} src={items.cover} />
+                    ) : (
+                      <img className={s.deckIcon} src={defIcon} />
+                    )}
+                  </a>
                   <SuperSort onChange={onHandleSort} sort={decks.sort} value={'name'}></SuperSort>
                   {items.name}
                 </TableDataCell>
-                <TableDataCell>{items.cardsCount}</TableDataCell>
-                
-                <TableDataCell><CurrentData currentUpData = {items.updated}/></TableDataCell>
-                <TableDataCell>{items.author.name}</TableDataCell>
-                <TableDataCell>
-                  <Typography as={'div'} style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
-                    {(items.author.id === me?.id) && <Button variant={'icon'} onClick={() => alert('9')}>
-                      <EditIcons />
-                    </Button>}
-                    <Button variant={'icon'}>
-                      <PlayCircleIcons />
-                    </Button>
-                   {(items.author.id === me?.id)  && <Button disabled={!(items.author.id === me?.id)} variant={'icon'}>
-                      <DeleteIcons />
-                    </Button> }
+                <TableDataCell className={s.td1}>{items.cardsCount}</TableDataCell>
+                <TableDataCell className={s.td2}>
+                  <CurrentData currentUpData={items.updated} />
+                </TableDataCell>
+                <TableDataCell className={s.td3}>{items.author.name}</TableDataCell>
+                <TableDataCell className={s.td4}>
+                  <Typography as={'div'} className={s.icons}>
+                    {items.author.id === me?.id && (
+                      
+                          <Button variant={'icon'} onClick={() => alert('9')}>
+                            <EditIcons />
+                          </Button>
+                       
+                    )}
+                    
+                        <Button variant={'icon'}>
+                          <PlayCircleIcons />
+                        </Button>
+                      
+
+                    {items.author.id === me?.id && (
+                      <RemoveDeck id={items.id}
+                        trigger={
+                          <Button
+                          id={items.id}
+                            
+                            disabled={!(items.author.id === me?.id)}
+                            variant={'icon'}
+                          >
+                            <DeleteIcons />
+                          </Button>
+                        }
+                      />
+                    )}
                   </Typography>
                 </TableDataCell>
               </TableRow>

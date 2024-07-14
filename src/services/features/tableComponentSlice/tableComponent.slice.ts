@@ -10,6 +10,7 @@ interface TableComponentState {
   name: string
   orderBy: null | string
   sort: string
+  deckId: string
 }
 
 const initialState: TableComponentState = {
@@ -18,10 +19,11 @@ const initialState: TableComponentState = {
   currentPage: 1,
   items: 5,
   maxSliderValue: 99,
-  minSliderValue: 1,
+  minSliderValue: 0,
   name: '',
   orderBy: null,
   sort: '',
+  deckId: ''
 }
 
 export const decksSlice = createSlice({
@@ -55,6 +57,9 @@ export const decksSlice = createSlice({
     setFavoritedBy: (state, action: PayloadAction<string>) => {
       state.favoritedBy = action.payload
     },
+    setDeckId: (state, action: PayloadAction<string>) => {
+      state.deckId = action.payload
+    }
   },
 })
 
@@ -69,4 +74,5 @@ export const {
   setOrderBy,
   setSort,
   setFavoritedBy,
+  setDeckId,
 } = decksSlice.actions

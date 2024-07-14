@@ -1,17 +1,68 @@
 .PaginationWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  
-    padding-top: 64px;
-    padding-bottom: 168px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 64px;
+  padding-bottom: 168px;
 }
 
 .Wrapper {
-    margin-top: 20px;
+  margin-top: 20px;
+  
 }
 
-.FilterWrapper{
-    padding-bottom: 36px;
+.FilterWrapper {
+  padding-bottom: 36px;
+}
+
+.deckIconWrapper {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 50px;
+  padding: 0 0 0 80px;
+}
+
+.deckIcon {
+  position: absolute;
+  top: 4px;
+  left: -10px;
+
+  max-width: 70px;
+  height: 50px;
+
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.td1 {
+  font-size: var(--font-size-s);
+  width: 150px;
+}
+
+.td2 {
+  font-size: var(--font-size-s);
+  width: 180px;
+}
+
+.td3 {
+  font-size: var(--font-size-s);
+  width: 200px;
+}
+
+.td4 {
+  font-size: var(--font-size-s);
+  width: 120px;
+}
+
+.icons {
+  display: flex;
+  gap: 11px;
+  justify-content: center;
+  align-items: center;
+  
 }

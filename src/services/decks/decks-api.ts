@@ -18,7 +18,16 @@ export const decksApi = baseApi.injectEndpoints({
         return { params: params ?? {}, url: 'v2/decks' }
       },
     }),
+    deletedDecks: builder.mutation<void, {id: string}>({
+      query: (params) => {
+        return {
+          body: params,
+          method: 'DELETE',
+          url: `v1/decks/${params.id}`,
+        }
+      }
+    })
   }),
 })
 
-export const { useCreateDecksMutation, useGetDecksQuery } = decksApi
+export const { useCreateDecksMutation, useGetDecksQuery, useDeletedDecksMutation } = decksApi

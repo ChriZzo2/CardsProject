@@ -14,6 +14,7 @@ import { WorkWithImage } from './component/workWithImage'
 import Photo from './icon/Photo.jpg'
 import iconCloseButton from './icon/iconCloseButton.svg'
 
+
 export const AddNewDeck = () => {
   const [createDecks] = useCreateDecksMutation()
   const [value, setValue] = useState<string>('')
@@ -29,14 +30,18 @@ export const AddNewDeck = () => {
   const onHandelDeleteClick = () => {
     setPhoto(null)
   }
+  
 
+  
   const handleSendDeck = async () => {
     await createDecks({ isPrivate, name: value })
     setValue('')
   }
 
+  const addNewDecksButton = <Button variant="primary">Add New Deсk</Button>
+
   return (
-    <SectionModal>
+    <SectionModal trigger={addNewDecksButton} title='Decks list'>
       <div className={s.container}>
         <div className={s.header}>
           <Typography as={'h3'} className={s.Title} variant={'h3'}>
