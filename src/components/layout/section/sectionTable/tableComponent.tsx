@@ -5,9 +5,10 @@ import { EditIcons } from '@/images/icons/Table/EditIcons'
 import { PlayCircleIcons } from '@/images/icons/Table/PlayCircleIcons'
 import { setIsAuthenticated, setMe } from '@/services/auth/auth.slice'
 import { useGetMeQuery } from '@/services/auth/authApi'
-import { useGetDecksQuery } from '@/services/decks/decks-api'
+import { useDeletedDecksMutation, useGetDecksQuery } from '@/services/decks/decks-api'
 import {
   setCurrentPage,
+  setDeckId,
   setFind,
   setItems,
   setMaxSliderValue,
@@ -32,6 +33,7 @@ import { SectionFilter } from '../sectionFilter/sectionFilter'
 import SuperSort from './superSort/superSort'
 import { CurrentData } from './data/data'
 import defaultIcon from './../../../ui/addNewDeck/icon/Photo.jpg'
+import { RemoveDeck } from '@/components/ui/removeDeck/removeDeck'
 
 const defIcon = defaultIcon
 
@@ -112,6 +114,9 @@ export const TableComponent = () => {
     dispatch(setItems(+value))
   }
 
+  const onHandelDeleted = (id: string) => {
+    dispatch(setDeckId(id))
+  }
   return (
     <Typography as={'div'} className={s.Wrapper}>
       <Typography as={'div'} className={s.FilterWrapper}>
@@ -123,6 +128,7 @@ export const TableComponent = () => {
           setSliderValue={handleSliderValueChange}
         />
       </Typography>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -143,7 +149,6 @@ export const TableComponent = () => {
         </TableHeader>
         <TableBody>
           {data?.items.map(items => {
-            
             return (
               <TableRow key={items.id}>
                 <TableDataCell>
@@ -157,28 +162,42 @@ export const TableComponent = () => {
                   <SuperSort onChange={onHandleSort} sort={decks.sort} value={'name'}></SuperSort>
                   {items.name}
                 </TableDataCell>
-                <TableDataCell className={s.td1} >{items.cardsCount}</TableDataCell>
+                <TableDataCell className={s.td1}>{items.cardsCount}</TableDataCell>
                 <TableDataCell className={s.td2}>
                   <CurrentData currentUpData={items.updated} />
                 </TableDataCell>
                 <TableDataCell className={s.td3}>{items.author.name}</TableDataCell>
                 <TableDataCell className={s.td4}>
-                  <Typography
-                    as={'div'} className={s.icons}
-                    
-                  >
+                  <Typography as={'div'} className={s.icons}>
                     {items.author.id === me?.id && (
-                      <Button variant={'icon'} onClick={() => alert('9')}>
-                        <EditIcons />
-                      </Button>
+                      <RemoveDeck
+                        trigger={
+                          <Button variant={'icon'} onClick={() => alert('9')}>
+                            <EditIcons />
+                          </Button>
+                        }
+                      />
                     )}
-                    <Button variant={'icon'}>
-                      <PlayCircleIcons />
-                    </Button>
+                    <RemoveDeck
+                      trigger={
+                        <Button variant={'icon'}>
+                          <PlayCircleIcons />
+                        </Button>
+                      }
+                    />
+
                     {items.author.id === me?.id && (
-                      <Button disabled={!(items.author.id === me?.id)} variant={'icon'}>
-                        <DeleteIcons />
-                      </Button>
+                      <RemoveDeck
+                        trigger={
+                          <Button
+                            onClick={() => onHandelDeleted(items.id)}
+                            disabled={!(items.author.id === me?.id)}
+                            variant={'icon'}
+                          >
+                            <DeleteIcons />
+                          </Button>
+                        }
+                      />
                     )}
                   </Typography>
                 </TableDataCell>

@@ -37,7 +37,7 @@ export const SectionFilter = ({
   }
 
   const onClearHandler = () => {
-    setSliderValue([1, 99])
+    setSliderValue([0, 99])
   }
   return (
     <div className={s.root}>
