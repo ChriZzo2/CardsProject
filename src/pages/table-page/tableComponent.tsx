@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/components/hooks'
-import { EditDeck } from '@/components/ui/editDeck/editDeck'
+
 import { Pagination } from '@/components/ui/pagination'
-import { RemoveDeck } from '@/components/ui/removeDeck/removeDeck'
+
 import { DeleteIcons } from '@/images/icons/Table/DeleteIcons'
 import { EditIcons } from '@/images/icons/Table/EditIcons'
 import { PlayCircleIcons } from '@/images/icons/Table/PlayCircleIcons'
@@ -21,7 +21,7 @@ import {
 
 import s from './tableComponent.module.scss'
 
-import { Button } from '../../../ui/button'
+import { Button } from '../../components/ui/button'
 import {
   Table,
   TableBody,
@@ -29,12 +29,15 @@ import {
   TableHeadCell,
   TableHeader,
   TableRow,
-} from '../../../ui/tables/tables'
-import { Typography } from '../../../ui/typography'
-import { SectionFilter } from '../sectionFilter/sectionFilter'
-import defaultIcon from './../../../ui/addNewDeck/icon/Photo.jpg'
+} from '../../components/ui/tables/tables'
+import { Typography } from '../../components/ui/typography'
+import { SectionFilter } from '../filter-page/filter-page'
+import defaultIcon from './../../components/ui/addNewDeck/icon/Photo.jpg'
 import { CurrentData } from './data/data'
 import SuperSort from './superSort/superSort'
+import { EditDeck } from '@/pages/edit-deck-page/edit-deck-page'
+import { RemoveDeck } from '@/pages/remove-deck-page/remove-deck-page'
+import { Link } from 'react-router-dom'
 
 const defIcon = defaultIcon
 
@@ -164,7 +167,7 @@ export const TableComponent = () => {
                     )}
                   </a>
                   <SuperSort onChange={onHandleSort} sort={decks.sort} value={'name'}></SuperSort>
-                  {items.name}
+                  <Link className={s.link} to={'/card-page'}>{items.name}</Link>
                 </TableDataCell>
                 <TableDataCell className={s.td1}>{items.cardsCount}</TableDataCell>
                 <TableDataCell className={s.td2}>

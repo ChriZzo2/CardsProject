@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { SectionModal } from '@/components/layout/section/sectionModal/sectionModal'
+import { SectionModal } from '@/pages/modal-page/modal-page'
 import { useCreateDecksMutation } from '@/services/decks/decks-api'
 import * as Dialog from '@radix-ui/react-dialog'
 
@@ -31,7 +31,7 @@ export const AddNewDeck = () => {
   }
 
   const handleSendDeck = async () => {
-    await createDecks({ isPrivate, name: value })
+    await createDecks({ isPrivate, name: value, cover: photo || null })
     setValue('')
   }
 

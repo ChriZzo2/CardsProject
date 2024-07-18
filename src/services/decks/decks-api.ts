@@ -1,6 +1,8 @@
 import { baseApi } from '@/services/base-api'
 
 import {
+  CreateCard,
+  CreateCardParamsType,
   DeckPostParams,
   DeckType,
   DecksParamsType,
@@ -18,6 +20,7 @@ export const decksApi = baseApi.injectEndpoints({
           url: 'v1/decks',
         }
       },
+      invalidatesTags: ['Decks'],
     }),
     deletedDecks: builder.mutation<void, { id: string }>({
       query: params => {
@@ -27,11 +30,13 @@ export const decksApi = baseApi.injectEndpoints({
           url: `v1/decks/${params.id}`,
         }
       },
+      invalidatesTags: ['Decks'],
     }),
     getDecks: builder.query<DecksType, DecksParamsType>({
       query: params => {
         return { params: params ?? {}, url: 'v2/decks' }
       },
+      providesTags: ['Decks'],
     }),
     updateDeck: builder.mutation<DeckType, DecksPatchParams>({
       query: params => ({
@@ -39,7 +44,15 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'PATCH',
         url: `v1/decks/${params.id}`,
       }),
+      invalidatesTags: ['Decks'],
     }),
+    createCard: builder.mutation<CreateCard, CreateCardParamsType>({
+      query: params => ({
+        body: params,
+        method: 'POST',
+        url: 'v1/cards',
+      })
+    })
   }),
 })
 
@@ -48,4 +61,5 @@ export const {
   useDeletedDecksMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
+  useCreateCardMutation,
 } = decksApi

@@ -1,0 +1,28 @@
+.link {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+}
+
+img {
+}
+
+.text {
+  font-size: var(--font-size-s);
+
+  &:active {
+    color: var(--color-info-500);
+  }
+
+  &:hover {
+    color: var(--color-info-500);
+    transition: 2s ease 0s;
+  }
+}
+
+.littleWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

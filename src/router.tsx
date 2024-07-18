@@ -11,9 +11,11 @@ import { ErrorPage } from '@/pages/error-page/error-page'
 import { SingUpPage } from '@/pages/sign-up-page/signUp-page'
 import { setIsAuthenticated } from '@/services/auth/auth.slice'
 
-import { Section } from './components/layout/section/section'
+
 import { SingInPage } from './pages/sing-in-page/singIn-page'
 import { useGetMeQuery } from './services/auth/authApi'
+import { DecksPage } from './pages/decks.page'
+import { CardPage } from './pages/card-page/card-page'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -24,15 +26,19 @@ const publicRoutes: RouteObject[] = [
     element: <SingInPage />,
     path: '/login',
   },
+  {
+    element: <CardPage/>,
+    path: '/card-page',
+  }
 ]
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <Section />,
+    element: <DecksPage />,
     path: '/',
   },
   {
-    element: <Section />,
+    element: <DecksPage />,
     path: '/decks',
   },
 ]

@@ -1,7 +1,7 @@
 import up from './../icon/up.svg'
 import down from './../icon/down.svg'
 import React from 'react'
-import { useCreateDecksMutation } from '@/services/decks/decks-api'
+
 
 const upIcon = up
 const downIcon = down

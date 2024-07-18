@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/components/hooks'
-import { SectionModal } from '@/components/layout/section/sectionModal/sectionModal'
+import { SectionModal } from '@/pages/modal-page/modal-page'
 import { useUpdateDeckMutation } from '@/services/decks/decks-api'
 import {
   setDeckName,
@@ -9,15 +9,18 @@ import {
 } from '@/services/features/tableComponentSlice/tableComponent.slice'
 import * as Dialog from '@radix-ui/react-dialog'
 
-import s from '../../ui/addNewDeck/addNewDeck.module.scss'
+import s from '../../components/ui/addNewDeck/addNewDeck.module.scss'
 
-import { WorkWithImage } from '../../ui/addNewDeck/component/workWithImage'
-import Photo from '../../ui/addNewDeck/icon/Photo.jpg'
-import iconCloseButton from '../../ui/addNewDeck/icon/iconCloseButton.svg'
-import { Button } from '../button'
-import { Checkbox } from '../checkbox'
-import { TextField } from '../input'
-import { Typography } from '../typography'
+
+import Photo from '../../components/ui/addNewDeck/icon/Photo.jpg'
+import iconCloseButton from '../../components/ui/addNewDeck/icon/iconCloseButton.svg'
+
+import { Typography } from '@/components/ui/typography'
+import { Button } from '@/components/ui/button'
+import { TextField } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
+import { WorkWithImage } from '@/components/ui/addNewDeck/component/workWithImage'
+
 
 type Props = {
   trigger: React.ReactNode

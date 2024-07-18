@@ -62,3 +62,30 @@ export interface DecksParamsType {
   name: string
   orderBy: null | string
 }
+
+export interface CreateCard {
+  id: number;
+  deckId: string;
+  userId: string;
+  question: string;
+  answer: string;
+  shots: number;
+  answerImg: string;
+  questionImg: string;
+  questionVideo: string;
+  answerVideo: string;
+  created: string;
+  updated: string;
+}
+
+export interface CreateCardParamsType {
+  deckId: string;
+  userId: string;
+  question: string;
+  answer: string;
+  shots: number;
+  answerImg: string;
+  questionImg: string;
+  questionVideo: string;
+  answerVideo: string;
+} 

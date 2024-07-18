@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { SectionFilter } from './sectionFilter'
-
-
+import { SectionFilter } from './filter-page'
 
 const meta = {
   component: SectionFilter,
@@ -13,7 +11,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const SectionFilterStories: Story = {
-  args: {
-    
-  },
+  args: {},
 }

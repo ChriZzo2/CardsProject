@@ -13,6 +13,7 @@ interface TableComponentState {
   name: string
   orderBy: null | string
   sort: string
+  
 }
 
 const initialState: TableComponentState = {

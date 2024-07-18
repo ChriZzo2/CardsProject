@@ -1,5 +1,4 @@
 import { TextField } from '@/components/ui/input'
-import s from './sectionFilter.module.scss'
 import { Button } from '@/components/ui/button'
 import { SliderApp } from '@/components/ui/slider'
 import clear from './icon/clear.svg'
@@ -8,6 +7,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/components/hooks'
 import { setAutorId } from '@/services/features/tableComponentSlice/tableComponent.slice'
+import s from './filter-page.module.scss'
 
 type SectionFilterType = {
   minCardsCount: number
@@ -49,7 +49,7 @@ export const SectionFilter = ({
           Show packs cards
         </Typography>
         <Typography as={'div'} variant="body1" className={s.buttonWrapper}>
-        <Button
+          <Button
             className={clsx(s.Button, s.RButton, active === 0 && s.active)}
             onClick={() => handleButtonClick(0, '')}
           >

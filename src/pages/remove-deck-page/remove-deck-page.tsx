@@ -1,15 +1,15 @@
 import React from 'react'
 
 import { useAppSelector } from '@/components/hooks'
-import { SectionModal } from '@/components/layout/section/sectionModal/sectionModal'
+import { SectionModal } from '@/pages/modal-page/modal-page'
 import { useDeletedDecksMutation } from '@/services/decks/decks-api'
 import * as Dialog from '@radix-ui/react-dialog'
 
-import s from './removeDeck.module.scss'
+import s from './remove-deck-page.module.scss'
 
-import { Button } from '../button'
-import { Typography } from '../typography'
-import iconCloseButton from './../addNewDeck/icon/iconCloseButton.svg'
+import { Button } from '../../components/ui/button'
+import { Typography } from '../../components/ui/typography'
+import iconCloseButton from './../../components/ui/addNewDeck/icon/iconCloseButton.svg'
 
 interface RemoveDeckProps {
   trigger: React.ReactNode

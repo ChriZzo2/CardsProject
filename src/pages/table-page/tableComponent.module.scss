@@ -10,7 +10,6 @@
 
 .Wrapper {
   margin-top: 20px;
-  
 }
 
 .FilterWrapper {
@@ -40,29 +39,41 @@
 }
 
 .td1 {
-  font-size: var(--font-size-s);
   width: 150px;
+  font-size: var(--font-size-s);
 }
 
 .td2 {
-  font-size: var(--font-size-s);
   width: 180px;
+  font-size: var(--font-size-s);
 }
 
 .td3 {
-  font-size: var(--font-size-s);
   width: 200px;
+  font-size: var(--font-size-s);
 }
 
 .td4 {
-  font-size: var(--font-size-s);
   width: 120px;
+  font-size: var(--font-size-s);
 }
 
 .icons {
   display: flex;
   gap: 11px;
-  justify-content: center;
   align-items: center;
-  
+  justify-content: center;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+
+  &:active {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

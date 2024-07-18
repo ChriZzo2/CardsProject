@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
 import './styles.css'
-import s from './sectionModal.module.scss'
+import s from './modal-page.module.scss'
 import { Typography } from '@/components/ui/typography'
 import { ComponentProps } from 'react'
 
